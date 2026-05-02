@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogos DOS - Arcade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a14;
+      color: #eee;
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .page-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #f59e0b;
+      text-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+    }
+
+    .page-header p {
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #aaa;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      text-decoration: none;
+      z-index: 10;
+    }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .game-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .game-card:hover {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.05);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(245, 158, 11, 0.2);
+    }
+
+    .game-card .icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .game-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+    }
+
+    .game-card p {
+      font-size: 0.75rem;
+      color: #666;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .game-card .badge {
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .game-card.battlechess:hover {
+      border-color: #f59e0b;
+      box-shadow: 0 8px 30px rgba(245, 158, 11, 0.2);
+    }
+
+    .game-card.mariotyping:hover {
+      border-color: #ef4444;
+      box-shadow: 0 8px 30px rgba(239, 68, 68, 0.2);
+    }
+    .game-card.mariotyping .icon {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+    .game-card.mariotyping .badge {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .game-card.streetfighter:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
+    }
+    .game-card.streetfighter .icon {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+    .game-card.streetfighter .badge {
+      color: #3b82f6;
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .hint {
+      color: #333;
+      font-size: 0.7rem;
+      text-align: center;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <a href="index.html" class="btn-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Voltar ao Arcade
+  </a>
+
+  <div class="page">
+    <div class="page-header">
+      <h1>Jogos DOS</h1>
+      <p>Clássicos emulados direto no navegador</p>
+    </div>
+
+    <div class="games-grid">
+      <a href="dos-game.html?game=battlechess" class="game-card battlechess">
+        <div class="icon">&#9813;</div>
+        <h3>Battle Chess</h3>
+        <p>Xadrez com animações épicas de batalha entre peças. Clássico de 1988.</p>
+        <span class="badge">Estratégia</span>
+      </a>
+
+      <a href="dos-game.html?game=mariotyping" class="game-card mariotyping">
+        <div class="icon">&#9997;</div>
+        <h3>Mario Typing</h3>
+        <p>Treine sua digitação com o Mario! Aprenda a digitar enquanto se diverte.</p>
+        <span class="badge">Educativo</span>
+      </a>
+
+      <a href="streetfighter.html" class="game-card streetfighter">
+        <div class="icon">&#128080;</div>
+        <h3>Street Fighter</h3>
+        <p>Ryu vs Ken! Soco, chute, hadouken. 2 jogadores no mesmo teclado.</p>
+        <span class="badge">Luta</span>
+      </a>
+    </div>
+
+    <p class="hint">Adicione mais jogos colocando os arquivos na pasta assets/</p>
+  </div>
+
+  <script>
+    const bgCanvas = document.getElementById('bgCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+
+    function resizeBg() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+    }
+
+    function drawBg() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      for (let i = 0; i < 50; i++) {
+        const x = (i * 137.5) % bgCanvas.width;
+        const y = (i * 97.3) % bgCanvas.height;
+        const r = 1 + Math.sin(Date.now() * 0.001 + i) * 0.5;
+        bgCtx.beginPath();
+        bgCtx.arc(x, y, r, 0, Math.PI * 2);
+        bgCtx.fillStyle = `rgba(245, 158, 11, ${0.06 + Math.sin(Date.now() * 0.0005 + i) * 0.03})`;
+        bgCtx.fill();
+      }
+      requestAnimationFrame(drawBg);
+    }
+
+    window.addEventListener('resize', resizeBg);
+    resizeBg();
+    drawBg();
+  </script>
+</body>
+</html>

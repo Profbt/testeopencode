@@ -1,0 +1,21 @@
+{
+  "costumes": {
+    "Fight": "bdeffa917b241b154b61bb1e18907241.png",
+    "KO": "235abfff0480e546bd3f8be649964993.png",
+    "Ready": "1006001e911afffb702190bb166a1344.png",
+    "Round1": "130e859424ab46dbb2391c2bc71c0a6f.png",
+    "Round2": "e079fcbf070e67a1d08ed1a10e85008e.png",
+    "Final": "542463190bd2864706742e0be74e3b2f.png"
+  },
+  "sounds": {
+    "109_Synth_saving": "9785c6201e9684f45d2c40fd1f41342b.mp3",
+    "050_Synth_nrt_1": "578814943a45a0182ce177ca849fb671.mp3",
+    "053_Synth_nrt_1": "3a052c87252f7e469fa0a71d3c2a3708.mp3",
+    "054_Synth_nrt_1": "47b9550acfbc905008a27f58b5f55540.mp3",
+    "058_Synth_nrt_1": "c22de76e54fd95f5a6cf358072413779.mp3",
+    "061_Synth_nrt_1": "dba68e5fa316e679e735dcfae29c10a7.mp3",
+    "062_Synth_nrt_1": "cdf2e1d5cac11b019ed294a37096c57d.mp3",
+    "061_Synth_nrt_2": "dba68e5fa316e679e735dcfae29c10a7.mp3",
+    "nrt_000 - The Fi": "bd3994d36361d18e5f124eeec402c659.mp3"
+  }
+}

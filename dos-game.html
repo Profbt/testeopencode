@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogando DOS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a14;
+      color: #eee;
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .game-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .game-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: rgba(10, 10, 20, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .game-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .game-title h1 { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .game-title span {
+      font-size: 0.7rem;
+      color: #f59e0b;
+      font-weight: 600;
+      background: rgba(245, 158, 11, 0.1);
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #aaa;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+    .emulator-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    #dosbox-container {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 4 / 3;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(245, 158, 11, 0.2);
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.1);
+      position: relative;
+    }
+
+    #dosbox-container .jsdos { width: 100% !important; height: 100% !important; }
+
+    .loading-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: rgba(10, 10, 20, 0.95);
+      z-index: 10;
+      transition: opacity 0.5s;
+    }
+    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+    .loading-spinner {
+      width: 48px; height: 48px;
+      border: 4px solid rgba(245, 158, 11, 0.2);
+      border-top-color: #f59e0b;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { color: #888; font-size: 0.9rem; }
+    .loading-progress { color: #f59e0b; font-size: 0.8rem; font-weight: 600; }
+    .loading-error { color: #ef4444; font-size: 0.8rem; margin-top: 8px; max-width: 300px; text-align: center; line-height: 1.4; }
+
+    .controls-hint {
+      text-align: center;
+      padding: 8px;
+      color: #555;
+      font-size: 0.7rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .controls-hint kbd {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="game-container">
+    <div class="game-header">
+      <div class="game-title">
+        <h1 id="game-name">Carregando...</h1>
+        <span>DOS</span>
+      </div>
+      <a href="dos.html" class="btn-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Jogos DOS
+      </a>
+    </div>
+
+    <div class="emulator-wrapper">
+      <div id="dosbox-container">
+        <div id="loading" class="loading-overlay">
+          <div class="loading-spinner"></div>
+          <span class="loading-text" id="loading-text">Inicializando DOSBox...</span>
+          <span class="loading-progress" id="progress-text">0%</span>
+          <span class="loading-error" id="error-text" style="display:none"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-hint">
+      <kbd>Mouse</kbd> clique para jogar • <kbd>Esc</kbd> menu • <kbd>Ctrl+F5</kbd> salvar • <kbd>Ctrl+F9</kbd> reset
+    </div>
+  </div>
+
+  <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+  <script>
+    const games = {
+      battlechess: {
+        name: 'Battle Chess',
+        bundle: 'assets/battlechess.jsdos'
+      },
+      mariotyping: {
+        name: 'Mario Typing',
+        bundle: 'assets/mariotyping.jsdos'
+      }
+    };
+
+    const bgCanvas = document.getElementById('bgCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+
+    function resizeBg() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+    }
+
+    function drawBg() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      for (let i = 0; i < 40; i++) {
+        const x = (i * 137.5) % bgCanvas.width;
+        const y = (i * 97.3) % bgCanvas.height;
+        const r = 1 + Math.sin(Date.now() * 0.001 + i) * 0.5;
+        bgCtx.beginPath();
+        bgCtx.arc(x, y, r, 0, Math.PI * 2);
+        bgCtx.fillStyle = `rgba(245, 158, 11, ${0.08 + Math.sin(Date.now() * 0.0005 + i) * 0.04})`;
+        bgCtx.fill();
+      }
+      requestAnimationFrame(drawBg);
+    }
+
+    window.addEventListener('resize', resizeBg);
+    resizeBg();
+    drawBg();
+
+    const loadingEl = document.getElementById('loading');
+    const loadingText = document.getElementById('loading-text');
+    const progressText = document.getElementById('progress-text');
+    const errorText = document.getElementById('error-text');
+    const gameNameEl = document.getElementById('game-name');
+
+    function showError(msg) {
+      errorText.textContent = msg;
+      errorText.style.display = 'block';
+      progressText.textContent = 'Erro';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof Dos === 'undefined') {
+        showError('Falha ao carregar js-dos. Verifique sua conexão.');
+        loadingText.textContent = 'Erro';
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const gameId = params.get('game') || 'battlechess';
+      const game = games[gameId];
+
+      if (!game) {
+        showError('Jogo não encontrado: ' + gameId);
+        loadingText.textContent = 'Erro';
+        return;
+      }
+
+      gameNameEl.textContent = game.name;
+      loadingText.textContent = `Carregando ${game.name}...`;
+
+      const container = document.getElementById('dosbox-container');
+
+      Dos(container, {
+        url: game.bundle,
+      }).then(() => {
+        loadingEl.classList.add('hidden');
+      }).catch((err) => {
+        console.error(err);
+        loadingText.textContent = 'Falha ao carregar';
+        if (err.message && err.message.includes('fetch')) {
+          showError('Não foi possível carregar os arquivos. Abra via servidor local (ex: Live Server).');
+        } else {
+          showError(err.message || 'Erro desconhecido ao carregar o jogo.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

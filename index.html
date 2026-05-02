@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcade - Menu de Jogos</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #eee;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: #e94560;
+      text-shadow: 0 0 30px rgba(233, 69, 96, 0.7), 0 0 60px rgba(233, 69, 96, 0.3);
+      letter-spacing: 8px;
+      font-weight: 900;
+      animation: titlePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.02); filter: brightness(1.15); }
+    }
+
+    .subtitle {
+      color: #555;
+      font-size: 1rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: -25px;
+    }
+
+    .games-grid {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .game-card {
+      width: 280px;
+      padding: 30px;
+      border: 2px solid #222;
+      border-radius: 12px;
+      background: rgba(15, 15, 15, 0.8);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .game-card:hover {
+      border-color: #e94560;
+      background: rgba(233, 69, 96, 0.05);
+      transform: translateY(-8px);
+      box-shadow: 0 10px 40px rgba(233, 69, 96, 0.3);
+    }
+
+    .game-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #e94560;
+    }
+
+    .game-card p {
+      color: #777;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .game-card .icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .game-card.damas:hover {
+      border-color: #f0d9b5;
+      box-shadow: 0 10px 40px rgba(240, 217, 181, 0.2);
+    }
+
+    .game-card.damas h2 {
+      color: #f0d9b5;
+    }
+
+    .game-card.plataforma:hover {
+      border-color: #ff0033;
+      box-shadow: 0 10px 40px rgba(255, 0, 51, 0.3);
+    }
+
+    .game-card.plataforma h2 {
+      color: #ff0033;
+    }
+
+    .game-card.geografia:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+    }
+
+    .game-card.geografia h2 {
+      color: #3b82f6;
+    }
+
+    .game-card.memoria:hover {
+      border-color: #8b5cf6;
+      box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
+    }
+
+    .game-card.memoria h2 {
+      color: #8b5cf6;
+    }
+
+    .game-card.dos:hover {
+      border-color: #f59e0b;
+      box-shadow: 0 10px 40px rgba(245, 158, 11, 0.3);
+    }
+
+    .game-card.dos h2 {
+      color: #f59e0b;
+    }
+
+    .game-card.streetfighter:hover {
+      border-color: #ef4444;
+      box-shadow: 0 10px 40px rgba(239, 68, 68, 0.3);
+    }
+
+    .game-card.streetfighter h2 {
+      color: #ef4444;
+    }
+
+    .credits {
+      color: #333;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="content">
+    <h1>ARCADE</h1>
+    <p class="subtitle">Escolha seu jogo</p>
+
+    <div class="games-grid">
+      <a href="damas.html" class="game-card damas">
+        <div class="icon">&#9813;</div>
+        <h2>Jogo de Damas</h2>
+        <p>Clássico jogo de tabuleiro para dois jogadores. Capture peças e coroe suas damas.</p>
+      </a>
+
+      <a href="plataforma.html" class="game-card plataforma">
+        <div class="icon">🏃</div>
+        <h2>Fuja do 67</h2>
+        <p>Sobreviva o máximo que puder fugindo do inimigo. Pule, desvie e colete power-ups.</p>
+      </a>
+      <a href="geografia.html" class="game-card geografia">
+        <div class="icon">🌎</div>
+        <h2>Geografia Explorer</h2>
+        <p>Aprenda geografia montando mapas ou respondendo quizzes interativos.</p>
+      </a>
+
+      <a href="memoria.html" class="game-card memoria">
+        <div class="icon">🧠</div>
+        <h2>Jogo da Memória</h2>
+        <p>Treine seu cérebro com matemática, português, inglês e mais.</p>
+      </a>
+
+      <a href="streetfighter.html" class="game-card streetfighter">
+        <div class="icon">&#128080;</div>
+        <h2>Street Fighter</h2>
+        <p>Ryu vs Ken! Soco, chute, hadouken. 2 jogadores no mesmo teclado.</p>
+      </a>
+
+      <a href="dos.html" class="game-card dos">
+        <div class="icon">&#128190;</div>
+        <h2>Jogos DOS</h2>
+        <p>Battle Chess, Mario Typing. Clássicos emulados no navegador.</p>
+      </a>
+    </div>
+
+    <p class="credits">Criado por Gustavo e Leandro Carvalho</p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 60; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: -0.1 - Math.random() * 0.5,
+          size: 1 + Math.random() * 2,
+          alpha: 0.05 + Math.random() * 0.15,
+          color: Math.random() > 0.8 ? '#e94560' : '#ffffff'
+        });
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = '#0a0a0a';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+        if (p.x < -10) p.x = canvas.width + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
+
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>

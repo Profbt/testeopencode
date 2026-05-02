@@ -1,0 +1,20 @@
+{
+  "costumes": {
+    "Lila Hadouken1": "3a413b4cb8213d5d0df7aeaee1aa0570.png",
+    "Lila Hadouken3": "f6707fa2eca8ea594d785500a07ed9c6.png",
+    "Lila Hadouken5": "871287ab05f85c4bee87bd5963c84f53.png",
+    "Lila Hadouken7": "99a72cc8cace8d3c291fc6e1f1e39aa7.png",
+    "Lila Hadouken2": "0b8839849d129d2ca26dd624e0192153.png",
+    "Lila Hadouken4": "9ada1558c37dc499ddc6de585828d7ea.png",
+    "Lila Hadouken6": "92f38e0ebcd7e732ee85fc875fafdc90.png",
+    "Lila Hadouken8": "22fa47525753a1483256b6a5a994809d.png",
+    "Lila Zeug1": "e5dfffc0aa61a6cf3663e3a86b6d6572.png",
+    "Lila Zeug2": "3e3199d9f8a370c4d49414132e1dc5a1.png",
+    "Lila Zeug3": "e1def41619da9c4bb26d05ffb0deb549.png",
+    "Lila Zeug4": "dc934789d449229de7990bcc4be64537.png"
+  },
+  "sounds": {
+    "039_Synth_hit_sh": "0f5a3d7d2da71ea31e8a0c4831e24858.mp3",
+    "001_Synth_akebon": "dcaa012d742a4d73de54d5f3abbfebb5.mp3"
+  }
+}

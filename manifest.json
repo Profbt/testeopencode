@@ -1,0 +1,25 @@
+{
+  "name": "Street Fighter Arcade",
+  "short_name": "Street Fighter",
+  "description": "Classic 2D fighting game - Ryu vs Ken",
+  "start_url": "/streetfighter.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#000000",
+  "theme_color": "#ff0000",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "streetfighter/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "streetfighter/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

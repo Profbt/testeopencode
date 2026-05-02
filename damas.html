@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo de Damas</title>
+  <link rel="stylesheet" href="damas/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="game-wrapper">
+    <div class="left-panel">
+      <div class="container">
+        <div class="header">
+          <div class="logo-mark">◆</div>
+          <div class="header-text">
+            <h1>Damas</h1>
+            <p class="subtitle">Clássico jogo de estratégia</p>
+          </div>
+        </div>
+
+        <div class="info-panel">
+          <div id="turn-indicator" class="turn-indicator">
+            <span class="turn-dot"></span>
+            <span class="turn-text">Vez das Vermelhas</span>
+          </div>
+          <div class="scores">
+            <div class="score-card red-card">
+              <div class="score-icon red-icon"></div>
+              <span id="red-score">12</span>
+            </div>
+            <span class="score-vs">vs</span>
+            <div class="score-card black-card">
+              <div class="score-icon black-icon"></div>
+              <span id="black-score">12</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="board-wrapper">
+          <div class="board-labels top-labels">
+            <span>a</span><span>b</span><span>c</span><span>d</span>
+            <span>e</span><span>f</span><span>g</span><span>h</span>
+          </div>
+          <div class="board-labels left-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span>
+            <span>5</span><span>6</span><span>7</span><span>8</span>
+          </div>
+          <div id="board" class="board"></div>
+          <div class="board-labels right-labels">
+            <span>1</span><span>2</span><span>3</span><span>4</span>
+            <span>5</span><span>6</span><span>7</span><span>8</span>
+          </div>
+          <div class="board-labels bottom-labels">
+            <span>a</span><span>b</span><span>c</span><span>d</span>
+            <span>e</span><span>f</span><span>g</span><span>h</span>
+          </div>
+          <div id="particles-container"></div>
+        </div>
+
+        <div class="controls">
+          <button id="undo-btn" class="btn-undo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 10h13a4 4 0 010 8H9"/>
+              <path d="M3 10l4-4M3 10l4 4"/>
+            </svg>
+            <span>Ctrl+Z</span>
+          </button>
+          <button id="reset-btn" class="btn-reset">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 4v6h6M23 20v-6h-6"/>
+              <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/>
+            </svg>
+            <span>Reiniciar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="panel-card">
+        <div class="panel-header">
+          <span class="panel-icon">📜</span>
+          <h3>Histórico</h3>
+        </div>
+        <div id="move-history" class="move-history">
+          <div class="empty-state">
+            <div class="empty-icon">♟</div>
+            <p>Faça a primeira jogada</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <div class="panel-header">
+          <span class="panel-icon">⚔</span>
+          <h3>Capturadas</h3>
+        </div>
+        <div class="captured-pieces">
+          <div class="captured-group">
+            <div class="captured-label red-label">Vermelhas</div>
+            <div id="captured-red" class="captured-row"></div>
+          </div>
+          <div class="captured-group">
+            <div class="captured-label black-label">Pretas</div>
+            <div id="captured-black" class="captured-row"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="game-over-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-glow"></div>
+      <div id="modal-icon" class="modal-icon">👑</div>
+      <h2 id="modal-title"></h2>
+      <p id="modal-subtitle"></p>
+      <div class="modal-stats">
+        <div class="stat">
+          <span class="stat-value" id="modal-moves">0</span>
+          <span class="stat-label">jogadas</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="modal-captured">0</span>
+          <span class="stat-label">capturas</span>
+        </div>
+      </div>
+      <button id="modal-play-again">Jogar Novamente</button>
+    </div>
+  </div>
+
+  <script src="damas/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuja do 67</title>
+  <link rel="stylesheet" href="plataforma/plataforma.css">
+</head>
+<body>
+  <div id="menu-screen" class="screen active">
+    <canvas id="menuCanvas"></canvas>
+    <div class="menu-content">
+      <h1>FUJA DO 67</h1>
+      <p class="subtitle">Sobreviva o máximo que puder</p>
+      <div class="controls-info">
+        <p>A/D ou ←/→ = Mover</p>
+        <p>W/↑/Espaço = Pular</p>
+        <p>ESC = Pausar</p>
+      </div>
+      <div class="difficulty-select">
+        <button class="diff-btn" data-diff="easy">Fácil</button>
+        <button class="diff-btn selected" data-diff="medium">Médio</button>
+        <button class="diff-btn" data-diff="hard">Difícil</button>
+      </div>
+      <button id="start-btn">JOGAR</button>
+      <div id="menu-highscore"></div>
+      <p class="credits">Criado por <span class="credit-name">Gustavo</span> e <span class="credit-name">Leandro Carvalho</span></p>
+    </div>
+  </div>
+
+  <div id="countdown-screen" class="screen">
+    <div id="countdown-text"></div>
+  </div>
+
+  <div id="game-screen" class="screen">
+    <canvas id="gameCanvas"></canvas>
+    <div id="hud">
+      <div class="hud-left">
+        <span id="timer">0.0s</span>
+        <span id="score">0</span>
+      </div>
+      <div class="hud-center">
+        <div id="level-bar-container">
+          <span id="level-label">67 Nível 1</span>
+          <div id="level-bar"><div id="level-fill"></div></div>
+        </div>
+      </div>
+      <div class="hud-right">
+        <span id="speed-indicator">⚡ 1x</span>
+        <span id="shield-indicator">🛡️ 0</span>
+      </div>
+    </div>
+    <div id="buff-display"></div>
+    <div id="spawn-warning" class="hidden">
+      <span class="warning-icon">⚠</span>
+      <span class="warning-text">67 VINDO!</span>
+    </div>
+  </div>
+
+  <div id="pause-screen" class="screen">
+    <h1>PAUSADO</h1>
+    <p class="subtitle">Pressione ESC para continuar</p>
+    <button id="resume-btn">CONTINUAR</button>
+    <button id="pause-retry-btn">REINICIAR</button>
+  </div>
+
+  <div id="jumpscare-screen" class="screen">
+    <div id="jumpscare-wrapper">
+      <img id="jumpscare-img" src="assets/images/67.png" alt="67">
+    </div>
+    <h1 id="jumpscare-text">TE PEGUEI!</h1>
+    <p id="final-time"></p>
+    <p id="final-score"></p>
+    <p id="final-difficulty"></p>
+    <p id="final-highscore"></p>
+    <button id="retry-btn">TENTAR DE NOVO</button>
+  </div>
+
+  <audio id="audio-menu" src="assets/sounds/menu.mp3" loop></audio>
+  <audio id="audio-game" src="assets/sounds/jogo.mp3" loop></audio>
+  <audio id="audio-scream" src="assets/sounds/grito.mp3"></audio>
+
+  <script src="plataforma/plataforma.js"></script>
+</body>
+</html>

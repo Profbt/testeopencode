@@ -1,0 +1,25 @@
+{
+  "costumes": {
+    "EpicRed_0000_Ebene-1": "7d91840a32a827e5421c0aae1d5274ae.png",
+    "EpicRed_0001_Ebe": "b4c04ccede96cf00edaf729ebfc837f7.png",
+    "EpicRed_0002_Ebe": "4cbc48b989a40508ecf77d9761bc0f46.png",
+    "EpicRed_0003_Ebe": "96b8b3b3734c99f9dff5acc5fc461357.png",
+    "EpicRed_0004_Ebe": "65e0c9c6b20ea477bcd5adbb4986d5e2.png",
+    "EpicRed_0005_Ebe": "ef0b4cd3240c183ec1f40ab6f87576fb.png",
+    "EpicRed_0006_Ebe": "9349700390b5602511f6cde8975f4941.png",
+    "EpicRed_0007_Ebe": "f2144cdbc1b7f14e70a2f687cb0eb80f.png",
+    "EpicRed_0008_Ebe": "a753c12ae0262896181c1f1a902ab233.png",
+    "EpicRed_0009_Ebe": "8810a11f2bc433ac547b003d7d20459b.png",
+    "EpicRed_0010_Ebe": "b0afdca437fcb62b71330641cf26c564.png",
+    "EpicRed_0011_Ebe": "2086e8ae3c1cf0c805520199976025c5.png"
+  },
+  "sounds": {
+    "035_Synth_hit_pu": "8313f11ca7c32b5718668597bec327b8.mp3",
+    "037_Synth_hit_pu": "6564e6cecdae7e1a7d1c7e0bfcbe610a.mp3",
+    "032_Synth_hit_ki": "b2d2c02688dd1dc816c2a93538a82e0f.mp3",
+    "030_Synth_hit_ki": "59889c7c5f83037ee82372d4569f79fd.mp3",
+    "038_Synth_hit_pu": "f53b66b8bb4cdc42ba0c9a272ddf077d.mp3",
+    "039_Synth_hit_sh": "0f5a3d7d2da71ea31e8a0c4831e24858.mp3",
+    "009_Synth_countf": "2134f6744315116d42f78eff87163ee6.mp3"
+  }
+}

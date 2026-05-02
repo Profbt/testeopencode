@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#ff0000">
+  <meta name="description" content="Street Fighter Arcade - Classic 2D Fighting Game">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="streetfighter/assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="streetfighter/assets/icons/icon-192.png">
+  <title>Street Fighter Arcade</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      overflow: hidden;
+      font-family: 'Segoe UI', 'Arial Black', Arial, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+    canvas { display: block; margin: 0 auto; image-rendering: pixelated; }
+
+    #ui-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; z-index: 10;
+    }
+
+    .screen {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 20; pointer-events: all;
+      transition: opacity 0.5s;
+    }
+    .screen.hidden { opacity: 0; pointer-events: none; }
+
+    /* Loading Screen */
+    #loading-screen {
+      background: radial-gradient(ellipse at center, #1a0a2e 0%, #000 70%);
+    }
+    #loading-screen h1 {
+      color: #ff3333;
+      font-size: 3rem;
+      font-weight: 900;
+      text-shadow: 0 0 30px rgba(255,0,0,0.5), 4px 4px 0 #600;
+      letter-spacing: 6px;
+      margin-bottom: 10px;
+      animation: titlePulse 1.5s ease-in-out infinite;
+    }
+    #loading-screen .subtitle {
+      color: #ffcc00;
+      font-size: 1rem;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .load-bar-outer {
+      width: 300px; height: 20px;
+      background: #222; border: 2px solid #ff3333;
+      border-radius: 10px; overflow: hidden;
+    }
+    .load-bar-inner {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #ff3333, #ff6600, #ffcc00);
+      transition: width 0.3s;
+      border-radius: 10px;
+    }
+    .load-text {
+      color: #aaa; font-size: 0.8rem; margin-top: 10px;
+    }
+
+    /* Character Select */
+    #select-screen {
+      background: linear-gradient(180deg, #1a0a2e 0%, #0a0a1a 100%);
+      padding: 20px;
+    }
+    #select-screen h2 {
+      color: #ff3333;
+      font-size: 2.5rem;
+      font-weight: 900;
+      text-shadow: 0 0 20px rgba(255,0,0,0.5);
+      margin-bottom: 30px;
+      letter-spacing: 4px;
+    }
+    .char-grid {
+      display: flex; gap: 40px; margin-bottom: 30px;
+    }
+    .char-card {
+      width: 200px; padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 3px solid #333;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .char-card:hover { border-color: #ff3333; transform: translateY(-5px); }
+    .char-card.selected { border-color: #ffcc00; box-shadow: 0 0 20px rgba(255,204,0,0.3); }
+    .char-card canvas {
+      width: 120px; height: 120px;
+      image-rendering: pixelated;
+      margin: 0 auto 10px;
+    }
+    .char-card .name {
+      color: #fff; font-size: 1.3rem; font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .char-card .desc {
+      color: #888; font-size: 0.7rem;
+    }
+    .start-btn {
+      padding: 15px 50px;
+      background: linear-gradient(180deg, #ff3333, #cc0000);
+      color: #fff; font-size: 1.2rem; font-weight: 900;
+      border: none; border-radius: 8px;
+      cursor: pointer; letter-spacing: 3px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(255,0,0,0.4);
+      transition: all 0.2s;
+    }
+    .start-btn:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(255,0,0,0.6); }
+    .start-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* Versus Screen */
+    #versus-screen {
+      background: #000;
+      z-index: 30;
+    }
+    #versus-screen .vs-container {
+      display: flex; align-items: center; gap: 60px;
+    }
+    .vs-fighter {
+      text-align: center;
+      animation: vsSlideIn 0.5s ease-out;
+    }
+    .vs-fighter.right { animation: vsSlideInR 0.5s ease-out; }
+    @keyframes vsSlideIn { from { transform: translateX(-100px); opacity: 0; } }
+    @keyframes vsSlideInR { from { transform: translateX(100px); opacity: 0; } }
+    .vs-fighter canvas {
+      width: 180px; height: 180px;
+      image-rendering: pixelated;
+    }
+    .vs-fighter .name {
+      color: #fff; font-size: 1.8rem; font-weight: 900;
+      margin-top: 10px;
+    }
+    .vs-text {
+      font-size: 5rem; font-weight: 900;
+      color: #ff3333;
+      text-shadow: 0 0 40px rgba(255,0,0,0.8);
+      animation: vsPulse 0.3s ease-in-out infinite alternate;
+    }
+    @keyframes vsPulse { from { transform: scale(1); } to { transform: scale(1.15); } }
+
+    /* Result Screen */
+    #result-screen {
+      background: rgba(0,0,0,0.9);
+      z-index: 30;
+    }
+    #result-screen h2 {
+      font-size: 4rem; font-weight: 900;
+      color: #ffcc00;
+      text-shadow: 0 0 30px rgba(255,204,0,0.5);
+      margin-bottom: 10px;
+      animation: resultPop 0.5s ease-out;
+    }
+    @keyframes resultPop { from { transform: scale(3); opacity: 0; } }
+    #result-screen .winner {
+      font-size: 1.5rem; color: #fff;
+      margin-bottom: 30px;
+    }
+    #result-screen .stats {
+      color: #888; font-size: 0.9rem;
+      margin-bottom: 30px;
+    }
+
+    /* Touch Controls */
+    #touch-controls {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 180px; z-index: 50;
+      display: none; pointer-events: all;
+    }
+    #touch-controls.visible { display: flex; }
+    .touch-zone {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: 10px;
+    }
+    .touch-btn {
+      width: 55px; height: 55px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.7rem; font-weight: bold;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .touch-btn:active { background: rgba(255,255,255,0.3); }
+    .touch-btn.punch { background: rgba(255,100,100,0.2); border-color: rgba(255,100,100,0.4); }
+    .touch-btn.kick { background: rgba(100,100,255,0.2); border-color: rgba(100,100,255,0.4); }
+    .touch-btn.hadouken { background: rgba(100,255,100,0.2); border-color: rgba(100,255,100,0.4); }
+    .touch-btn.special { background: rgba(255,200,50,0.2); border-color: rgba(255,200,50,0.4); }
+
+    .dpad {
+      display: grid;
+      grid-template-columns: 55px 55px 55px;
+      grid-template-rows: 55px 55px 55px;
+      gap: 4px;
+    }
+    .dpad .touch-btn { border-radius: 8px; }
+
+    @media (max-width: 768px) {
+      #loading-screen h1 { font-size: 1.8rem; }
+      .char-grid { gap: 15px; flex-direction: column; }
+      .char-card { width: 160px; }
+      .vs-text { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+
+  <div id="ui-overlay">
+    <div id="screen-message" class="screen-msg" style="display:none"></div>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="screen">
+    <h1>STREET FIGHTER</h1>
+    <div class="subtitle">Arcade Edition</div>
+    <div class="load-bar-outer"><div class="load-bar-inner" id="load-bar"></div></div>
+    <div class="load-text" id="load-text">Loading assets...</div>
+  </div>
+
+  <!-- Character Select -->
+  <div id="select-screen" class="screen hidden">
+    <h2>SELECT FIGHTER</h2>
+    <div class="char-grid">
+      <div class="char-card" id="char-ryu" data-char="Ryu">
+        <canvas id="preview-ryu" width="80" height="80"></canvas>
+        <div class="name">RYU</div>
+        <div class="desc">The Balanced Warrior</div>
+      </div>
+      <div class="char-card" id="char-ken" data-char="Ken">
+        <canvas id="preview-ken" width="80" height="80"></canvas>
+        <div class="name">KEN</div>
+        <div class="desc">The Flame Fighter</div>
+      </div>
+    </div>
+    <button class="start-btn" id="start-btn" disabled>READY? FIGHT!</button>
+  </div>
+
+  <!-- Versus Screen -->
+  <div id="versus-screen" class="screen hidden">
+    <div class="vs-container">
+      <div class="vs-fighter">
+        <canvas id="vs-p1" width="120" height="120"></canvas>
+        <div class="name" id="vs-p1-name">RYU</div>
+      </div>
+      <div class="vs-text">VS</div>
+      <div class="vs-fighter right">
+        <canvas id="vs-p2" width="120" height="120"></canvas>
+        <div class="name" id="vs-p2-name">KEN</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="result-screen" class="screen hidden">
+    <h2 id="result-title">K.O.!</h2>
+    <div class="winner" id="result-winner">RYU WINS!</div>
+    <div class="stats" id="result-stats"></div>
+    <button class="start-btn" id="rematch-btn">REMATCH</button>
+    <br><br>
+    <button class="start-btn" id="menu-btn" style="background: linear-gradient(180deg, #444, #222); font-size: 0.9rem; padding: 10px 30px;">MAIN MENU</button>
+  </div>
+
+  <!-- Touch Controls -->
+  <div id="touch-controls">
+    <div class="touch-zone">
+      <div class="dpad">
+        <div></div><div class="touch-btn" data-key="KeyW">▲</div><div></div>
+        <div class="touch-btn" data-key="KeyA">◀</div><div class="touch-btn" style="background:rgba(255,255,255,0.05)">·</div><div class="touch-btn" data-key="KeyD">▶</div>
+        <div></div><div class="touch-btn" data-key="KeyS">▼</div><div></div>
+      </div>
+    </div>
+    <div class="touch-zone">
+      <div class="touch-btn punch" data-key="KeyJ">P</div>
+      <div class="touch-btn kick" data-key="KeyK">K</div>
+      <div class="touch-btn hadouken" data-key="KeyL">H</div>
+      <div class="touch-btn special" data-key="KeyF">S</div>
+    </div>
+  </div>
+
+  <script src="streetfighter/game.js"></script>
+  <script>
+    // PWA Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+
+    // Detect mobile
+    const isMobile = /Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) || ('ontouchstart' in window && window.innerWidth < 1024);
+    if (isMobile) {
+      document.getElementById('touch-controls').classList.add('visible');
+    }
+
+    // Touch controls
+    document.querySelectorAll('.touch-btn[data-key]').forEach(btn => {
+      const key = btn.dataset.key;
+      btn.addEventListener('touchstart', e => { e.preventDefault(); keys[key] = true; });
+      btn.addEventListener('touchend', e => { e.preventDefault(); keys[key] = false; });
+      btn.addEventListener('mousedown', e => { keys[key] = true; });
+      btn.addEventListener('mouseup', e => { keys[key] = false; });
+    });
+  </script>
+</body>
+</html>

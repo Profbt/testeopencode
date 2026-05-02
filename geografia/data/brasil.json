@@ -1,0 +1,119 @@
+{
+  "name": "Brasil",
+  "type": "country",
+  "width": 800,
+  "height": 900,
+  "regions": [
+    { "id": "norte", "name": "Norte", "color": "#22c55e" },
+    { "id": "nordeste", "name": "Nordeste", "color": "#eab308" },
+    { "id": "centro-oeste", "name": "Centro-Oeste", "color": "#a855f7" },
+    { "id": "sudeste", "name": "Sudeste", "color": "#3b82f6" },
+    { "id": "sul", "name": "Sul", "color": "#ef4444" }
+  ],
+  "states": [
+    {
+      "id": "AC", "name": "Acre", "capital": "Rio Branco", "region": "norte",
+      "path": "M 60 400 L 90 380 L 130 390 L 120 420 L 80 440 L 50 420 Z"
+    },
+    {
+      "id": "AM", "name": "Amazonas", "capital": "Manaus", "region": "norte",
+      "path": "M 60 260 L 150 230 L 220 250 L 260 300 L 240 370 L 200 400 L 130 390 L 90 380 L 60 400 L 30 350 L 40 290 Z"
+    },
+    {
+      "id": "RR", "name": "Roraima", "capital": "Boa Vista", "region": "norte",
+      "path": "M 150 100 L 180 80 L 200 110 L 210 160 L 190 200 L 150 230 L 130 180 L 140 140 Z"
+    },
+    {
+      "id": "PA", "name": "Pará", "capital": "Belém", "region": "norte",
+      "path": "M 200 110 L 280 90 L 360 100 L 400 130 L 420 180 L 400 230 L 350 260 L 260 300 L 220 250 L 190 200 L 210 160 Z"
+    },
+    {
+      "id": "AP", "name": "Amapá", "capital": "Macapá", "region": "norte",
+      "path": "M 400 60 L 430 50 L 450 80 L 440 120 L 420 140 L 400 130 L 380 100 Z"
+    },
+    {
+      "id": "TO", "name": "Tocantins", "capital": "Palmas", "region": "norte",
+      "path": "M 360 260 L 420 250 L 440 300 L 450 360 L 420 400 L 370 390 L 350 340 L 340 290 Z"
+    },
+    {
+      "id": "MA", "name": "Maranhão", "capital": "São Luís", "region": "nordeste",
+      "path": "M 420 180 L 480 160 L 520 180 L 530 240 L 510 290 L 470 310 L 440 300 L 420 250 L 420 180 Z"
+    },
+    {
+      "id": "PI", "name": "Piauí", "capital": "Teresina", "region": "nordeste",
+      "path": "M 470 310 L 510 290 L 530 340 L 540 400 L 510 440 L 470 420 L 450 380 L 450 340 Z"
+    },
+    {
+      "id": "CE", "name": "Ceará", "capital": "Fortaleza", "region": "nordeste",
+      "path": "M 530 180 L 580 160 L 620 180 L 610 230 L 580 260 L 540 270 L 520 240 L 530 240 Z"
+    },
+    {
+      "id": "RN", "name": "Rio Grande do Norte", "capital": "Natal", "region": "nordeste",
+      "path": "M 620 180 L 660 170 L 680 200 L 670 240 L 640 250 L 610 230 Z"
+    },
+    {
+      "id": "PB", "name": "Paraíba", "capital": "João Pessoa", "region": "nordeste",
+      "path": "M 610 230 L 640 250 L 660 280 L 640 310 L 600 300 L 580 260 Z"
+    },
+    {
+      "id": "PE", "name": "Pernambuco", "capital": "Recife", "region": "nordeste",
+      "path": "M 580 260 L 600 300 L 640 310 L 660 340 L 620 360 L 570 340 L 540 320 L 530 290 Z"
+    },
+    {
+      "id": "AL", "name": "Alagoas", "capital": "Maceió", "region": "nordeste",
+      "path": "M 620 360 L 650 350 L 670 370 L 650 400 L 620 390 Z"
+    },
+    {
+      "id": "SE", "name": "Sergipe", "capital": "Aracaju", "region": "nordeste",
+      "path": "M 650 400 L 670 390 L 690 410 L 670 440 L 640 430 Z"
+    },
+    {
+      "id": "BA", "name": "Bahia", "capital": "Salvador", "region": "nordeste",
+      "path": "M 470 420 L 510 440 L 560 420 L 600 440 L 640 430 L 670 440 L 680 480 L 650 520 L 590 530 L 530 510 L 480 480 Z"
+    },
+    {
+      "id": "MT", "name": "Mato Grosso", "capital": "Cuiabá", "region": "centro-oeste",
+      "path": "M 180 440 L 260 400 L 300 440 L 320 500 L 300 560 L 260 600 L 200 610 L 160 570 L 140 520 L 150 470 Z"
+    },
+    {
+      "id": "GO", "name": "Goiás", "capital": "Goiânia", "region": "centro-oeste",
+      "path": "M 300 560 L 350 540 L 400 560 L 420 600 L 400 640 L 360 660 L 310 640 L 280 600 Z"
+    },
+    {
+      "id": "DF", "name": "Distrito Federal", "capital": "Brasília", "region": "centro-oeste",
+      "path": "M 370 590 L 390 585 L 395 600 L 380 610 L 365 600 Z"
+    },
+    {
+      "id": "MS", "name": "Mato Grosso do Sul", "capital": "Campo Grande", "region": "centro-oeste",
+      "path": "M 200 610 L 260 600 L 280 640 L 290 700 L 260 750 L 210 760 L 170 720 L 160 660 Z"
+    },
+    {
+      "id": "MG", "name": "Minas Gerais", "capital": "Belo Horizonte", "region": "sudeste",
+      "path": "M 400 640 L 450 620 L 500 640 L 540 680 L 550 730 L 520 770 L 470 790 L 420 780 L 380 750 L 360 710 L 380 670 Z"
+    },
+    {
+      "id": "ES", "name": "Espírito Santo", "capital": "Vitória", "region": "sudeste",
+      "path": "M 550 680 L 580 670 L 600 700 L 590 740 L 560 750 L 540 730 Z"
+    },
+    {
+      "id": "RJ", "name": "Rio de Janeiro", "capital": "Rio de Janeiro", "region": "sudeste",
+      "path": "M 480 790 L 520 770 L 540 800 L 520 830 L 480 820 L 460 800 Z"
+    },
+    {
+      "id": "SP", "name": "São Paulo", "capital": "São Paulo", "region": "sudeste",
+      "path": "M 310 640 L 360 660 L 380 750 L 420 780 L 460 800 L 480 820 L 440 850 L 380 860 L 320 840 L 280 800 L 260 750 L 290 700 Z"
+    },
+    {
+      "id": "PR", "name": "Paraná", "capital": "Curitiba", "region": "sul",
+      "path": "M 280 800 L 320 840 L 380 860 L 400 890 L 360 920 L 300 910 L 260 880 L 240 840 Z"
+    },
+    {
+      "id": "SC", "name": "Santa Catarina", "capital": "Florianópolis", "region": "sul",
+      "path": "M 300 910 L 360 920 L 380 950 L 350 970 L 300 960 L 280 940 Z"
+    },
+    {
+      "id": "RS", "name": "Rio Grande do Sul", "capital": "Porto Alegre", "region": "sul",
+      "path": "M 280 940 L 350 970 L 380 1000 L 360 1040 L 300 1050 L 250 1020 L 230 970 Z"
+    }
+  ]
+}

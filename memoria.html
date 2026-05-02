@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Memória</title>
+  <link rel="stylesheet" href="memoria/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- MENU SCREEN -->
+  <div id="menu-screen" class="screen active">
+    <div class="menu-container">
+      <div class="menu-header">
+        <div class="logo-brain">
+          <span>🧠</span>
+        </div>
+        <h1>Jogo da Memória</h1>
+        <p class="subtitle">Treine seu cérebro enquanto aprende</p>
+      </div>
+
+      <div class="menu-section">
+        <h2>Escolha o Tema</h2>
+        <div id="module-cards" class="module-cards"></div>
+      </div>
+
+      <div class="menu-section">
+        <h2>Modo de Jogo</h2>
+        <div class="mode-cards">
+          <button class="mode-card selected" data-mode="classic">
+            <span class="mode-icon">🎯</span>
+            <h3>Clássico</h3>
+            <p>Sem pressão de tempo</p>
+          </button>
+          <button class="mode-card" data-mode="timed">
+            <span class="mode-icon">⏱</span>
+            <h3>Contra o Tempo</h3>
+            <p>Encontre antes do tempo acabar</p>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu-section">
+        <h2>Dificuldade</h2>
+        <div id="difficulty-buttons" class="difficulty-buttons"></div>
+      </div>
+
+      <button id="start-btn" class="btn-start">
+        <span>Iniciar Jogo</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game-screen" class="screen">
+    <div class="game-wrapper">
+      <div class="game-header">
+        <button id="back-to-menu" class="btn-back" title="Voltar ao menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <div class="game-badges">
+          <span id="module-badge" class="badge"></span>
+          <span id="diff-badge" class="badge"></span>
+        </div>
+      </div>
+
+      <div class="game-stats">
+        <div class="stat-item">
+          <span class="stat-icon">💎</span>
+          <span id="score-display" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">👆</span>
+          <span id="moves-display" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🔥</span>
+          <span id="combo-display" class="stat-value">x1</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">⏱</span>
+          <span id="timer-display" class="stat-value">--:--</span>
+        </div>
+      </div>
+
+      <div id="game-board" class="game-board"></div>
+
+      <div id="progress-bar" class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+        <span id="progress-text" class="progress-text">0/0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="results-screen" class="screen">
+    <div class="results-container">
+      <div class="results-glow"></div>
+      <div class="results-icon" id="results-icon">🏆</div>
+      <h2 id="results-title"></h2>
+      <p id="results-subtitle"></p>
+
+      <div class="results-stats">
+        <div class="result-card">
+          <span class="result-value" id="result-score">0</span>
+          <span class="result-label">Pontuação</span>
+        </div>
+        <div class="result-card">
+          <span class="result-value" id="result-moves">0</span>
+          <span class="result-label">Jogadas</span>
+        </div>
+        <div class="result-card">
+          <span class="result-value" id="result-time">--</span>
+          <span class="result-label">Tempo</span>
+        </div>
+        <div class="result-card">
+          <span class="result-value" id="result-combo">x1</span>
+          <span class="result-label">Melhor Combo</span>
+        </div>
+        <div class="result-card">
+          <span class="result-value" id="result-accuracy">0%</span>
+          <span class="result-label">Precisão</span>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button id="results-menu" class="btn-results">🏠 Menu</button>
+        <button id="results-retry" class="btn-results retry">🔄 Jogar Novamente</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="memoria/modules/math.js"></script>
+  <script src="memoria/modules/portugues.js"></script>
+  <script src="memoria/modules/ingles.js"></script>
+  <script src="memoria/modules/animais.js"></script>
+  <script src="memoria/script.js"></script>
+</body>
+</html>

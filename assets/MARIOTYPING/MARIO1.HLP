@@ -1,0 +1,66 @@
+<12>Main Menu Help
+<1>
+From the Main Menu, you may select
+the different play modes available.
+The right edge of the screen lists
+the various modes of play.  They
+are:
+
+	Outside (Beginner) World
+	Underwater (Intermediate) World
+	Underground (Advanced) World
+	Practice (Expert Express)
+	Report Card (View Progress)
+	Next (Go To Next Lesson)
+
+If you have loaded a student, then
+[NEXT] is your best option, as it
+will sequence you through the
+lessons at a rate acceptable to
+you, allowing you to maximize
+your learning of the typing
+skills.
+
+If you are not ready for a world,
+you must first set your goal WPM
+high enough to qualify for that
+world, as follows:
+
+	Outside		No minimum
+	Underwater	10 wpm minimum
+	Underground	30 wpm minimum
+	Practice	No minimum
+
+To set your goal WPM artificially,
+select Edit from the Student menu,
+after a student has first been
+loaded.
+
+Main Menu Pull-Down Menus
+
+<12>FILE:
+<1>
+  About - Info on Mario Teaches
+				typing.
+  Help - view this screen.
+  Demo - Self-running demon-
+				stration.
+  Keyboard - Show a picture of
+				the keyboard.
+  Music - turn Music on/off.
+  Sound F/X - turn Sound effects
+				on/off.
+  Speech - turn Speech on/off.
+  Quit - Quit to DOS.
+
+<12>STUDENT:
+<1>
+  New - Create a new student.
+  Load - Load a student from disk.
+  Edit - Edit a student's info.
+
+<12>LESSONS:
+<1>
+  You may choose from various
+  lessons available.
+
