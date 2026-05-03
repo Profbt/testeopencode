@@ -2,8 +2,21 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Coleção de jogos retrô incluindo Street Fighter, Damas, Geografia, Memória e clássicos DOS">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="application-name" content="Arcade">
   <title>Arcade - Menu de Jogos</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/icon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/icon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/icons/icon-64.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/icons/icon-128.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="assets/icons/icon-512.png">
   <style>
     * {
       margin: 0;
@@ -20,7 +33,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     canvas {
@@ -164,6 +178,41 @@
       font-size: 0.85rem;
       letter-spacing: 1px;
     }
+
+    @media (max-width: 768px) {
+      body { justify-content: flex-start; padding-top: 40px; }
+      h1 { font-size: 2.5rem; letter-spacing: 4px; }
+      .subtitle { font-size: 0.85rem; letter-spacing: 2px; margin-top: -15px; }
+      .games-grid { gap: 20px; padding: 0 15px; }
+      .game-card { width: 250px; padding: 20px; }
+      .game-card h2 { font-size: 1.3rem; }
+      .game-card p { font-size: 0.85rem; }
+      .game-card .icon { font-size: 2.5rem; margin-bottom: 10px; }
+      .content { gap: 25px; }
+      .credits { font-size: 0.75rem; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.8rem; letter-spacing: 3px; }
+      .subtitle { font-size: 0.75rem; margin-top: -10px; }
+      .games-grid { gap: 15px; padding: 0 10px; }
+      .game-card { width: 100%; max-width: 300px; padding: 15px; }
+      .game-card h2 { font-size: 1.1rem; }
+      .game-card p { font-size: 0.8rem; line-height: 1.4; }
+      .game-card .icon { font-size: 2rem; margin-bottom: 8px; }
+      .content { gap: 20px; padding: 15px; }
+      .credits { font-size: 0.7rem; }
+    }
+
+    @media (max-width: 320px) {
+      h1 { font-size: 1.5rem; letter-spacing: 2px; }
+      .subtitle { font-size: 0.65rem; }
+      .game-card { padding: 12px; }
+      .game-card h2 { font-size: 1rem; }
+      .game-card p { font-size: 0.75rem; }
+    }
+
+    .game-card, .game-card * { touch-action: manipulation; }
   </style>
 </head>
 <body>
@@ -264,6 +313,18 @@
       requestAnimationFrame(animate);
     }
     animate();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+          console.log('Service Worker registrado com sucesso:', registration);
+        }).catch(error => {
+          console.log('Falha ao registrar Service Worker:', error);
+        });
+      });
+    }
   </script>
 </body>
 </html>

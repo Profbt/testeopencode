@@ -206,6 +206,33 @@
     }
     .touch-btn:active { background: rgba(255,255,255,0.3); }
     .touch-btn.punch { background: rgba(255,100,100,0.2); border-color: rgba(255,100,100,0.4); }
+
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #aaa;
+      cursor: pointer;
+      font-family: 'Segoe UI', sans-serif;
+      transition: all 0.2s;
+      text-decoration: none;
+      z-index: 100;
+    }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+    @media (max-width: 480px) {
+      .btn-back { top: 15px; left: 15px; padding: 6px 12px; font-size: 0.75rem; }
+      .btn-back svg { width: 14px; height: 14px; }
+    }
     .touch-btn.kick { background: rgba(100,100,255,0.2); border-color: rgba(100,100,255,0.4); }
     .touch-btn.hadouken { background: rgba(100,255,100,0.2); border-color: rgba(100,255,100,0.4); }
     .touch-btn.special { background: rgba(255,200,50,0.2); border-color: rgba(255,200,50,0.4); }
@@ -219,15 +246,64 @@
     .dpad .touch-btn { border-radius: 8px; }
 
     @media (max-width: 768px) {
-      #loading-screen h1 { font-size: 1.8rem; }
+      #loading-screen h1 { font-size: 1.8rem; letter-spacing: 4px; }
+      .subtitle { font-size: 0.8rem; letter-spacing: 4px; }
       .char-grid { gap: 15px; flex-direction: column; }
-      .char-card { width: 160px; }
+      .char-card { width: 160px; padding: 15px; }
+      .char-card canvas { width: 100px; height: 100px; }
+      .char-card .name { font-size: 1.1rem; }
+      .char-card .desc { font-size: 0.6rem; }
       .vs-text { font-size: 3rem; }
+      .vs-fighter canvas { width: 140px; height: 140px; }
+      .vs-fighter .name { font-size: 1.4rem; }
+      #result-screen h2 { font-size: 3rem; }
+      #result-screen .winner { font-size: 1.2rem; }
+      .start-btn { padding: 12px 40px; font-size: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      #loading-screen h1 { font-size: 1.4rem; letter-spacing: 2px; }
+      .subtitle { font-size: 0.7rem; letter-spacing: 3px; }
+      .char-grid { gap: 10px; }
+      .char-card { width: 140px; padding: 12px; }
+      .char-card canvas { width: 80px; height: 80px; }
+      .char-card .name { font-size: 1rem; }
+      .vs-text { font-size: 2.5rem; }
+      .vs-fighter canvas { width: 110px; height: 110px; }
+      .vs-fighter .name { font-size: 1.2rem; }
+      .vs-fighter { gap: 30px; }
+      #result-screen h2 { font-size: 2.5rem; }
+      #result-screen .winner { font-size: 1rem; }
+      #result-screen .stats { font-size: 0.8rem; }
+      .start-btn { padding: 10px 30px; font-size: 0.9rem; }
+      .load-bar-outer { width: 250px; }
+    }
+
+    @media (max-width: 320px) {
+      #loading-screen h1 { font-size: 1.2rem; }
+      .char-card { width: 120px; padding: 10px; }
+      .char-card canvas { width: 70px; height: 70px; }
+      .vs-text { font-size: 2rem; }
+      .vs-fighter canvas { width: 90px; height: 90px; }
+      #result-screen h2 { font-size: 2rem; }
+    }
+
+    @media (hover: none) {
+      .char-card:hover { transform: none; border-color: #333; }
+      .char-card.selected { border-color: #ffcc00; }
+      .start-btn:hover { transform: none; box-shadow: 0 4px 15px rgba(255,0,0,0.4); }
     }
   </style>
 </head>
 <body>
   <canvas id="gameCanvas"></canvas>
+
+  <a href="index.html" class="btn-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Voltar ao Arcade
+  </a>
 
   <div id="ui-overlay">
     <div id="screen-message" class="screen-msg" style="display:none"></div>

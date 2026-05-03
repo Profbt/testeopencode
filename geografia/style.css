@@ -1087,3 +1087,92 @@ body {
   .game-wrapper { padding: 8px 12px; }
   .game-area { min-height: 400px; }
 }
+
+@media (max-width: 480px) {
+  .menu-header h1 { font-size: 1.6rem; }
+  .subtitle { font-size: 0.8rem; }
+  .logo-globe { width: 56px; height: 56px; }
+  .globe-icon { font-size: 24px; }
+  .mode-card { padding: 15px; }
+  .mode-card h3 { font-size: 0.9rem; }
+  .mode-card p { font-size: 0.7rem; }
+  .region-btn { padding: 10px 12px; }
+  .region-info strong { font-size: 0.8rem; }
+  .region-info span { font-size: 0.65rem; }
+  .diff-btn { padding: 8px; font-size: 0.8rem; }
+  .btn-start { padding: 12px 24px; font-size: 0.9rem; }
+
+  .game-header { gap: 8px; }
+  .mode-title { font-size: 0.9rem; }
+  .region-title { font-size: 0.7rem; }
+  .game-stats { gap: 10px; padding: 8px 12px; }
+  .stat-value { font-size: 0.9rem; }
+  .game-sidebar { gap: 8px; }
+  .sidebar-panel { padding: 10px; }
+  .sidebar-panel h3 { font-size: 0.7rem; }
+  .drag-piece { padding: 6px 8px; }
+  .drag-piece .piece-name { font-size: 0.75rem; }
+  .quiz-question { font-size: 0.8rem; padding: 8px; }
+  .quiz-option { padding: 8px 12px; font-size: 0.8rem; }
+
+  .results-container { padding: 40px 16px; gap: 16px; }
+  .results-icon { font-size: 3rem; }
+  .results-container h2 { font-size: 1.4rem; }
+  .results-stats { gap: 8px; }
+  .result-card { padding: 12px; }
+  .result-value { font-size: 1.2rem; }
+  .result-entry { padding: 5px 8px; font-size: 0.75rem; }
+
+  .modal-content { padding: 16px; }
+  .modal-header h2 { font-size: 1rem; }
+  .score-entry { padding: 10px; }
+  .score-info strong { font-size: 0.8rem; }
+  .score-value { font-size: 0.9rem; }
+}
+
+@media (max-width: 320px) {
+  .menu-header h1 { font-size: 1.3rem; }
+  .mode-cards { gap: 8px; }
+  .mode-card { padding: 12px; }
+  .mode-icon { font-size: 1.5rem; }
+  .region-buttons { gap: 8px; }
+  .region-btn { padding: 8px 10px; }
+  .diff-btn { padding: 6px; font-size: 0.75rem; }
+
+  .game-sidebar { flex-direction: column; }
+  .pieces-pool { max-height: 300px; }
+  .quiz-options { gap: 4px; }
+
+  .results-stats { grid-template-columns: 1fr 1fr; }
+  .results-actions { flex-direction: column; width: 100%; }
+  .btn-results { width: 100%; text-align: center; }
+}
+
+.drag-piece, .quiz-option, .state-path, .btn-hint, .btn-back, .btn-start, .region-btn, .diff-btn, .btn-results, .btn-hint-close, .btn-close { touch-action: manipulation; }
+
+.btn-back {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #aaa;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+  text-decoration: none;
+  z-index: 100;
+}
+.btn-back:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+@media (max-width: 480px) {
+  .btn-back { top: 15px; left: 15px; padding: 6px 12px; font-size: 0.75rem; }
+  .btn-back svg { width: 14px; height: 14px; }
+}
