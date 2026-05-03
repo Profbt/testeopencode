@@ -315,13 +315,37 @@
     animate();
   </script>
 
+  <div id="update-toast" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#f59e0b; color:#000; padding:12px 24px; border-radius:8px; font-weight:600; z-index:9999; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.5);">
+    Nova versão disponível! Clique aqui para atualizar
+  </div>
+
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').then(registration => {
-          console.log('Service Worker registrado com sucesso:', registration);
+          console.log('Service Worker registrado:', registration);
+
+          // Check for updates
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New version available
+                const toast = document.getElementById('update-toast');
+                toast.style.display = 'block';
+                toast.addEventListener('click', () => {
+                  newWorker.postMessage({ type: 'SKIP_WAITING' });
+                });
+              }
+            });
+          });
         }).catch(error => {
-          console.log('Falha ao registrar Service Worker:', error);
+          console.log('Falha ao registrar SW:', error);
+        });
+
+        // Reload when new SW takes over
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          window.location.reload();
         });
       });
     }

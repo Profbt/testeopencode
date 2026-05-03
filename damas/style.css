@@ -853,6 +853,21 @@ body {
 
 .piece, .cell.dark.valid-move, .btn-undo, .btn-reset, #modal-play-again { touch-action: manipulation; }
 
+.credits {
+  color: #333;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+.credit-name {
+  color: #e94560;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(233, 69, 96, 0.3);
+}
+
 .btn-back {
   position: fixed;
   top: 20px;
